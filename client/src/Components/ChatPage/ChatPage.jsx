@@ -17,7 +17,15 @@ function ChatPage() {
       </div>
       {/* chatbody */}
 
-      <div className='chat-body'></div>
+      <div className='chat-body'>
+       <div className='message-recieved sb13'>
+        <p>hai jithun madhav</p>
+       </div>
+       <div className='message-recieved message-sent sb14'>
+       <p>hai jithun</p>
+       </div>
+
+      </div>
 
       {/* chatFooter */}
       <div className='chat-footer'>
