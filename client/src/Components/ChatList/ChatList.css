@@ -1,5 +1,7 @@
 .list-width{
-    height: 100vh;
+    height: 98vh;
     width: 20%;
     background-color: #f5f7fb;
+    margin: 0.5%;
+    border-radius: 10px;
 }
