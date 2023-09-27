@@ -1,18 +1,33 @@
 import React from 'react'
 import './ChatPage.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BsSendFill } from "react-icons/bs";
 function ChatPage() {
   return (
     <div className='chatpage-width'>
+        {/* chatHeader */}
+
       <div className='chat-head'>
         <div className='profile-pic'>
-            <img className='user-img' src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1976&q=80" alt="" srcset="" />
+            <img className='user-img' src="http://chatvia-light.react.themesbrand.com/static/media/avatar-4.b23e41d9c09997efbc21.jpg" alt="" srcset="" />
         </div>
         <div className='user-name'>
-            <h3>Jithun</h3>
+            <h5 className='name-style'>Jithya Madhav</h5>
         </div>
       </div>
+      {/* chatbody */}
+
       <div className='chat-body'></div>
-      <div className='chat-footer'></div>
+
+      {/* chatFooter */}
+      <div className='chat-footer'>
+        <div className='input-field-main'>
+        <input className='input-field' type="text" placeholder=' Enter message...' name="" id="" />
+        </div>
+        <div className='button-main'>
+        <button className='send-btn'><BsSendFill/></button>
+        </div>
+      </div>
     </div>
   )
 }
