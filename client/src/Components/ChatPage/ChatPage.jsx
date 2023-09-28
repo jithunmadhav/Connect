@@ -3,7 +3,7 @@ import './ChatPage.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsSendFill,BsPaperclip } from "react-icons/bs";
 import InputEmoji from "react-input-emoji";
-function ChatPage() {
+function ChatPage({data}) {
   const [text, setText] = useState("");
 
   function handleOnEnter(text) {
@@ -14,6 +14,11 @@ function ChatPage() {
     ref.current.click()
   }
   return (
+    <>
+    {!data ?
+    <div className='empty-chatpage'>
+      <h5 className='empty-quote'>select a chat to start messaging...</h5>
+    </div> :
     <div className='chatpage-width'>
         {/* chatHeader */}
 
@@ -22,7 +27,7 @@ function ChatPage() {
             <img className='user-img' src="http://chatvia-light.react.themesbrand.com/static/media/avatar-4.b23e41d9c09997efbc21.jpg" alt="" srcset="" />
         </div>
         <div className='user-name'>
-            <h5 className='name-style'>Jithya Madhav</h5>
+            <h5 className='name-style'>{data?.name}</h5>
         </div>
       </div>
       {/* chatbody */}
@@ -57,6 +62,8 @@ function ChatPage() {
         </div>
       </div>
     </div>
+    }
+    </>
   )
 }
 

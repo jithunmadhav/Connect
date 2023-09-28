@@ -1,0 +1,30 @@
+.outer-div{
+    height: 85%;
+    width: 100%;
+    border-radius: 10px;
+}
+.profile-main-div{
+    display: flex;
+    justify-content: center;
+}
+
+.profile-img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: auto;
+    display: flex;
+    margin-top: 34px;
+    object-fit: cover;
+}
+.profile-box{
+    display: flex;
+    flex-direction: column;
+}
+.profile-text{
+    text-align: center;
+    margin-top: 15px;
+    font-size: 22px;
+    font-weight: bolder;
+    font-family: ui-serif;
+}
