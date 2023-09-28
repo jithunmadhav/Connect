@@ -29,8 +29,8 @@ const dispatch = useDispatch()
               <Route path='/signup' element={<Signup/>} />
               <Route path='/forgotpassword' element={<ForgotPassword/>} />
               <Route path='/resetpassword' element={<Passwordreset/>} />     
-               {/* <Route path='/' element={<Navigate to={'/login'}/>}/> */}
-               <Route path='/' element={<Home/>}/>
+               <Route path='/' element={<Navigate to={'/login'}/>}/>
+               {/* <Route path='/' element={<Home/>}/> */}
 
             </>
           )}
