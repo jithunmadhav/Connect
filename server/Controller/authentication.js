@@ -3,17 +3,21 @@ import jwt  from 'jsonwebtoken'
 import { sentOTP } from '../Helpers/mail.js';
 import { randomNumber } from '../Helpers/randomnum.js';
 import userModel from '../Model/userSchema.js';
+import sanitize from 'sanitize-html';
 export const userSignup=async(req,res)=>{
     try {
 
         console.log(req.body);
-    let {email,mobile,password,confirmpassword}=req.body;
-    const oldUser=await userModel.findOne({email})
+    let {email,password,confirmpassword}=req.body;
+    const sanitizedEmail = sanitize(email);
+    const sanitizedPassword = sanitize(password);
+    const sanitizedconfirmpassword = sanitize(confirmpassword);
+    const oldUser=await userModel.findOne({sanitizedEmail})
     if(oldUser){
         res.json({err:true,message:'User already exsist'})
     }else{
          
-        if(password==confirmpassword){
+        if(sanitizedPassword==sanitizedconfirmpassword){
            let otp=randomNumber()
            console.log(otp);
            sentOTP(email,otp);
@@ -42,16 +46,21 @@ export const userSignup=async(req,res)=>{
 export const verifyUserSignup=async(req,res)=>{
     try {
         
-        const {name,email,password}=req.body
+        const {name,email,mobile,password}=req.body
         let otp=req.body.OTP;
         let userToken=req.cookies.signupToken;
+
+        const sanitizedName = sanitize(name);
+        const sanitizedEmail = sanitize(email);
+        const sanitizedPassword = sanitize(password);
+        
          const OtpToken = jwt.verify(userToken,process.env.JWT_SECRET_KEY)
-        let bcrypPassword=await bcrypt.hash(password,10)
+        let bcrypPassword=await bcrypt.hash(sanitizedPassword,10)
         if(otp==OtpToken.otp){
     
             let user= await userModel.create({
-                name,
-                email,
+                name:sanitizedName,
+                email:sanitizedEmail,
                 password:bcrypPassword
             });
             const userToken=jwt.sign({
@@ -74,10 +83,11 @@ export const verifyUserSignup=async(req,res)=>{
 
 }
 export const resendOtp=(req,res)=>{
-    const {email,mobile}=req.body;
+    const {email}=req.body;
+    const sanitizedEmail = sanitize(email);
     let otp=randomNumber()
     console.log(otp);
-           sentOTP(email,otp);
+           sentOTP(sanitizedEmail,otp);
             const userToken=jwt.sign({
                 otp:otp,
 
@@ -94,11 +104,12 @@ export const resendOtp=(req,res)=>{
 
 export const forgotPassword=async(req,res)=>{
     const {email}=req.body
-    let oldUser=await userModel.findOne({email:email})
+    const sanitizedEmail = sanitize(email);
+    let oldUser=await userModel.findOne({email:sanitizedEmail})
     if(oldUser){
         let otp=randomNumber()
         console.log(otp);
-        sentOTP(email,otp)
+        sentOTP(sanitizedEmail,otp)
            const userToken=jwt.sign({
                 otp:otp,
 
@@ -144,9 +155,11 @@ export const resetpassword=async(req,res)=>{
 export const userLogin=async(req,res)=>{
     try {
       let {email,password}=req.body;
-      let user=await userModel.findOne({email:email})
+      const sanitizedEmail = sanitize(email);
+      const sanitizedPassword = sanitize(password);
+      let user=await userModel.findOne({email:sanitizedEmail})
       if(user ){
-            let status= await bcrypt.compare(password,user.password)
+            let status= await bcrypt.compare(sanitizedPassword,user.password)
             if(status){
                 const userToken=jwt.sign({
                     id:user._id,

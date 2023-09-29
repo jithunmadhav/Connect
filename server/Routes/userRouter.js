@@ -1,5 +1,6 @@
 import express from 'express'
-import { forgotPassword, resendOtp, resetpassword, userCheckAuth, userLogin, userLogout, userSignup, VerifyResetOtp, verifyUserSignup } from '../Controller/userController.js'
+import { forgotPassword, resendOtp, resetpassword, userCheckAuth, userLogin, userLogout, userSignup, VerifyResetOtp, verifyUserSignup } from '../Controller/authentication.js'
+import { userDetails } from '../Controller/chat.js'
 import { verifyUser } from '../Middlewares/userAuth.js'
 const router=express.Router()
 
@@ -8,4 +9,5 @@ router.post('/login',userLogin).get('/logout',userLogout)
 router.post('/signup',userSignup).post('/verifySignup',verifyUserSignup).post('/resendOtp',resendOtp)
 router.post('/forgotPassword',forgotPassword).post('/resetPassword',resetpassword).post('/verifyResetOtp',VerifyResetOtp)
 // router.use(verifyUser)
+router.get('/userdetails',userDetails)
 export default router                                  
