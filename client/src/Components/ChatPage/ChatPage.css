@@ -52,6 +52,7 @@ input[type="file"] {
     display: flex;
     margin-top: 14px;
     object-fit: cover;
+    border: 1px solid rgb(167, 166, 166);
 }
 .name-style{
     font-family: sans-serif;
@@ -88,14 +89,15 @@ input[type="file"] {
 }
 
 .message-recieved {
-    width: 300px;
+    width: fit-content;
+    min-width: 150px;
     margin: 20px;
     border-radius: 15px;
     color: #fff;
     background: #9891f8;
     padding: 20px;
     text-align: center;
-    font-weight: 900;
+    font-weight: 500;
     font-family: arial;
     position: relative;
     height: 10%;
@@ -115,9 +117,9 @@ input[type="file"] {
     width: 0px;
     height: 10%;
     position: absolute;
-    border-left: 15px solid #9891f8;
+    border-left: 15px solid #d3d1d1;
     border-right: 15px solid transparent;
-    border-top: 15px solid #9891f8;
+    border-top: 15px solid #d3d1d1;
     border-bottom: 15px solid transparent;
     right: -16px;
     top: 0px;
@@ -131,8 +133,8 @@ input[type="file"] {
     height: 0px;
     position: absolute;
     border-left: 15px solid transparent;
-    border-right: 15px solid #d3d1d1;
-    border-top: 15px solid #d3d1d1;
+    border-right: 15px solid #9891f8;
+    border-top: 15px solid #9891f8;
     border-bottom: 15px solid transparent;
     left: -16px;
     top: 0px;

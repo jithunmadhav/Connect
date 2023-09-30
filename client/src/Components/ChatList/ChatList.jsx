@@ -4,6 +4,7 @@ import './ChatList.css'
 import { useSelector } from 'react-redux'
 import {AiOutlineSetting  } from "react-icons/ai";
 import ProfileSetting from '../ProfileSetting/ProfileSetting';
+import imageUrl from '../../imageUrl';
 function ChatList({data}) {
 
 
@@ -13,9 +14,16 @@ function ChatList({data}) {
   const {user} =useSelector(state=>state)
   const userId=user?.details?._id;
 
+  // Data passing to the chatpage component
   const HomePageData=(para)=>{
     data(para)
   }
+// creating chat with the user
+  const createChat=(recieverId)=>{
+    const senderId=userId;
+    axios.post('/createChat',{senderId,recieverId})
+  }
+
   useEffect(() => {
     axios.get('/userdetails',{params:{search,userId}}).then((response)=>{
       setuserdata(response.data.result)
@@ -33,17 +41,23 @@ function ChatList({data}) {
       <p onClick={()=>setopensetting(!opensetting)}><AiOutlineSetting/></p>
       </div>
       {opensetting ? 
-      <ProfileSetting/>
+      <ProfileSetting userId={userId}/>
       :<>
         <input className='input-field' onChange={(e)=>setsearch(e.target.value)} type="text" placeholder='🔍 Search here...' name="" id="" />
         <h6>Recents</h6>
         {userdata.map((item)=>{
           return (
         <div className='user-list' 
-        onClick={()=>HomePageData(item)}
+        onClick={()=>{HomePageData(item); createChat(item._id)}}
         >
         <div className='prof-pic'>
-        <img className='user-img' src="http://chatvia-light.react.themesbrand.com/static/media/avatar-4.b23e41d9c09997efbc21.jpg" alt="" srcset="" />
+          {
+            item?.image ? 
+            <img className='user-img' src={imageUrl+item.image.filename} alt="" srcset="" />
+
+            :
+        <img className='user-img' src="https://www.transparentpng.com/thumb/user/gray-user-profile-icon-png-fP8Q1P.png" alt="" srcset="" />
+          }
         </div>
         <div className='prof-name' >
           <p>{item.name}</p>

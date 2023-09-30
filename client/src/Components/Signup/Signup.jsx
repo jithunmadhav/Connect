@@ -19,8 +19,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://github.com/dashboard">
-        URLencrypto
+      <Link color="inherit" href="https://github.com/jithunmadhav">
+        CONNECT
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

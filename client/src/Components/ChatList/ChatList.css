@@ -18,6 +18,7 @@
     border-radius: 10px;
     display: flex;
     margin-bottom: 15px;
+    cursor: pointer;
 }
 .prof-pic{
 width: 30%;
