@@ -15,7 +15,7 @@ app.use(cors({
   credentials: true,
 }));
 
-app.use(express.static(path.resolve() + "/public"));
+app.use('/Public', express.static('Public'));
 app.use(express.json()); // Parse JSON body
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(cookieparser());
