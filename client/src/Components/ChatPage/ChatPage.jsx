@@ -6,6 +6,7 @@ import InputEmoji from "react-input-emoji";
 import imageUrl from '../../imageUrl';
 import axios from '../../axios';
 import { useSelector } from 'react-redux';
+import {format} from 'timeago.js'
 function ChatPage({ data,chatId }) {
   const {user} =useSelector(state=>state)
   const senderId=user?.details?._id;
@@ -66,8 +67,9 @@ function ChatPage({ data,chatId }) {
           message.map((messages)=>{
        return ( <>
        <div className={messages.senderId !==senderId ? 'message-recieved sb14'  :'message-recieved message-sent sb13'}>
-        <p style={{ textAlign:'left' }}>{messages.text}</p>
+        <p className='message-para' >{messages.text}</p>
        </div>
+        <p className='time-style'>{format(messages.createdAt)}</p>
       
        </>)
           })

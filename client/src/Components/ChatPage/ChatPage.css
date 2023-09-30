@@ -86,11 +86,13 @@ input[type="file"] {
     display: flex;
     flex-direction: column;
     padding: 30px;
+    overflow-y: scroll;
 }
 
 .message-recieved {
     width: fit-content;
     min-width: 150px;
+    max-width: 400px;
     margin: 20px;
     border-radius: 15px;
     color: #fff;
@@ -100,8 +102,12 @@ input[type="file"] {
     font-weight: 500;
     font-family: arial;
     position: relative;
-    height: 10%;
+    height: fit-content;
+    word-wrap: break-word;
     
+}
+.message-para{
+    text-align: left;
 }
 
 .message-sent{
@@ -142,4 +148,9 @@ input[type="file"] {
 .file-clip{
     background-color:#cecfd100 ;
     border: none;
+}
+
+.time-style{
+    font-size: 13px;
+    text-align: right;
 }
