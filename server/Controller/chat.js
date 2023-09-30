@@ -1,4 +1,5 @@
 import chatModel from "../Model/chatModel.js";
+import messageModel from "../Model/messageModel.js";
 import userModel from "../Model/userSchema.js";
 
 export const userDetails=async(req,res)=>{
@@ -48,3 +49,14 @@ export const createChat = async (req, res) => {
       res.status(500).json(error);
     }
   };
+
+export const addMessage=async(req,res)=>{
+try {
+    const {chatId,senderId,text}=req.body;
+    await messageModel.create({chatId,senderId,text})
+    res.status(200).json({err:false})
+} catch (error) {
+    console.log(error);
+    res.status(501).json({err:true})
+}
+}
