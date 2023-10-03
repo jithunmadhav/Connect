@@ -33,10 +33,8 @@ function ProfileSetting({userId}) {
   })
 }, [refresh])
 
-console.log(userdata);
   const handleSubmit=(e)=>{
     e.preventDefault()
-    console.log(files);
     axios.post('/updateUser',{name,files,userId},{headers:{'Content-Type':'multipart/form-data'}}).then((response)=>{
       if(!response.data.err){
         setopenEdit(!openEdit)

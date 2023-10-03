@@ -80,6 +80,7 @@ input[type="file"] {
 }
 .chat-body{
     height: 80%;
+    overflow-y: auto;
     background-color: #f5f7fb;
     margin: 0.5%;
     border-radius: 10px;
@@ -88,7 +89,9 @@ input[type="file"] {
     padding: 30px;
     overflow-y: scroll;
 }
-
+.chat-body::-webkit-scrollbar {
+    display: none;
+}
 .message-recieved {
     width: fit-content;
     min-width: 150px;
@@ -150,7 +153,11 @@ input[type="file"] {
     border: none;
 }
 
-.time-style{
+.time-style2{
     font-size: 13px;
     text-align: right;
+}
+.time-style1{
+    font-size: 13px;
+    text-align: left;
 }

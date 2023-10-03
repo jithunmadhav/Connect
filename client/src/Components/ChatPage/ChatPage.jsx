@@ -7,7 +7,7 @@ import imageUrl from '../../imageUrl';
 import axios from '../../axios';
 import { useSelector } from 'react-redux';
 import {format} from 'timeago.js'
-function ChatPage({ data,chatId }) {
+function ChatPage({ data,chatId,setsendMessage,recievedMessages}) {
   const {user} =useSelector(state=>state)
   const senderId=user?.details?._id;
 
@@ -18,6 +18,7 @@ function ChatPage({ data,chatId }) {
 
   function handleOnEnter() {
     let message=text;
+    setsendMessage(message)
     axios.post('/addMessage',{chatId,senderId,message}).then(()=>{
       setText('')
       setrefresh(!refresh)
@@ -32,12 +33,30 @@ function ChatPage({ data,chatId }) {
 
   useEffect(()=>{
     axios.get('/fetchMessage',{params:{chatId}}).then((response)=>{
-      console.log(response.data.result,'$$$$$$$$$$');
       setmessage(response.data.result)
     }).catch((error)=>{
       console.log(error);
     })
   },[chatId,refresh])
+
+useEffect(() => {
+  const scrollElement = scroll.current;
+
+  if (scrollElement) {
+    scrollElement.scrollIntoView({ behavior: "smooth" });
+  }
+}, [message]);
+
+useEffect(()=> {
+  console.log("Message Arrived: ", recievedMessages)
+  if (recievedMessages !== null && recievedMessages.chatId === chatId) {
+    setmessage([...message, recievedMessages]);
+  }
+
+},[recievedMessages])
+
+  const scroll = useRef();
+
   return (
     <>
     {!data ?
@@ -62,15 +81,14 @@ function ChatPage({ data,chatId }) {
       </div>
       {/* chatbody */}
 
-      <div className='chat-body'>
+      <div   className='chat-body'>
         {
           message.map((messages)=>{
        return ( <>
-       <div className={messages.senderId !==senderId ? 'message-recieved sb14'  :'message-recieved message-sent sb13'}>
+       <div ref={scroll} className={messages.senderId !==senderId ? 'message-recieved sb14'  :'message-recieved message-sent sb13'}>
         <p className='message-para' >{messages.text}</p>
        </div>
-        <p className='time-style'>{format(messages.createdAt)}</p>
-      
+       <p className={messages.senderId!==senderId ? 'time-style1':'time-style2'}>{format(messages.createdAt)}</p>      
        </>)
           })
         }
