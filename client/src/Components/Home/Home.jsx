@@ -5,12 +5,14 @@ import ChatPage from '../ChatPage/ChatPage'
 import { useSelector } from 'react-redux'
 import axios from '../../axios'
 import { io } from 'socket.io-client'
+const socket=io.connect('ws://localhost:4000')
 
 function Home() {
-  const socket=useRef()
+  // const socket=useRef()
   const [userdata, setuserdata] = useState('')
   const [chatId, setchatId] = useState('')
   const [sendMessage, setsendMessage] = useState('')
+  const [activeUsers, setactiveUsers] = useState([])
   const [recievedMessages, setrecievedMessages] = useState('')
   const chatListData=(data)=>{
     setuserdata(data)
@@ -28,21 +30,21 @@ if(recieverId){
 }
 
 useEffect(() => {
-socket.current=io('ws://localhost:4000')
-socket.current.on('connect', () => {
+// socket.current=io('ws://localhost:4000')
+socket.on('connect', () => {
   console.log('WebSocket connected successfully!');
 });
 
-socket.current.on('connect_error', (error) => {
+socket.on('connect_error', (error) => {
   console.error('WebSocket connection error:', error);
 });
-socket.current.emit("new-user-add",senderId)
-socket.current.on('get-user',(activeusers)=>{
-  console.log(activeusers,'%%%%%%%%%%%');
+socket.emit("new-user-add",senderId)
+socket.on('get-user',(activeusers)=>{
+  setactiveUsers(activeusers)
 })
 
 return ()=>{
-  socket.current.disconnect(); 
+  socket.emit('disconnection'); 
 }
 
 }, [user])
@@ -52,13 +54,13 @@ useEffect(() => {
   console.log('send-message',sendMessage);
 if(sendMessage!==null && sendMessage!==""){
   let data={recieverId:recieverId,text:sendMessage,senderId:senderId,chatId:chatId}
-  socket.current.emit('send-message',data)
+  socket.emit('send-message',data)
 }
 }, [sendMessage])
-
+console.log("ONLINE : ",activeUsers);
 //Recieve-message
 useEffect(()=>{
-  socket.current.on('recieve-message',(response)=>{
+  socket.on('recieve',(response)=>{
 console.log(response);
 setrecievedMessages(response)
   })
@@ -67,7 +69,9 @@ setrecievedMessages(response)
   return (
   <>
   <div className='chat-width'>
-  <ChatList data={chatListData} />
+  <ChatList data={chatListData}
+  activeUsers={activeUsers}
+  />
   <ChatPage data={userdata}
   chatId={chatId}
   setsendMessage={setsendMessage}
@@ -79,3 +83,27 @@ setrecievedMessages(response)
 }
 
 export default Home
+
+
+// import React,{useEffect} from 'react'
+// import { useRef } from 'react';
+// import { useState } from 'react';
+
+// function Home() {
+//   const [stream, setstream] = useState('')
+//   const myvideo=useRef()
+//   useEffect(() => {
+//          navigator.mediaDevices.getUserMedia({video:true,audio:true}).then((stream)=>{
+//            setstream(stream)
+//            myvideo.current.srcObject=stream;
+//            console.log(myvideo);
+//          })
+//   }, [])
+//   return (
+//     <div>
+//       <video playsInline ref={myvideo} autoPlay style={{width:'100%',height:'100%'}} />
+//     </div>
+//   )
+// }
+
+// export default Home

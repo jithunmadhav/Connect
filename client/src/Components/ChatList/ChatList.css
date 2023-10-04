@@ -49,3 +49,8 @@ margin-top: 25px;
     justify-content: space-between;
     padding-right: 10px;
 }
+.online-para {
+    color: green;
+    margin-top: -22px;
+    font-size: 11px;
+}

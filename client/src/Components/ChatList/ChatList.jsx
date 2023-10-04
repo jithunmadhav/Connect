@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux'
 import {AiOutlineSetting  } from "react-icons/ai";
 import ProfileSetting from '../ProfileSetting/ProfileSetting';
 import imageUrl from '../../imageUrl';
-function ChatList({data}) {
+function ChatList({data,activeUsers}) {
 
 
   const [search, setsearch] = useState('')
-  const [userdata, setuserdata] = useState([])
+  let [userdata, setuserdata] = useState([])
   const [opensetting, setopensetting] = useState(false)
   const {user} =useSelector(state=>state)
   const userId=user?.details?._id;
@@ -31,7 +31,12 @@ function ChatList({data}) {
       console.log(err);
     })
   }, [search])
+  console.log(activeUsers,'ACTIVE');
 
+   userdata = userdata.map((item) => {
+    const isOnline = activeUsers.some((user) => user.userId === item._id);
+    return { ...item, online: isOnline };
+});
 
 
   return (
@@ -61,6 +66,7 @@ function ChatList({data}) {
         </div>
         <div className='prof-name' >
           <p>{item.name}</p>
+          <p className='online-para'>{item.online ?'online' : ''}</p>
         </div>
       </div>
           )
