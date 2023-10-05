@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ChatPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BsSendFill, BsPaperclip } from "react-icons/bs";
+import { BsSendFill, BsPaperclip,BsFillTelephoneFill } from "react-icons/bs";
 import InputEmoji from "react-input-emoji";
 import imageUrl from '../../imageUrl';
 import axios from '../../axios';
 import { useSelector } from 'react-redux';
 import {format} from 'timeago.js'
-function ChatPage({ data,chatId,setsendMessage,recievedMessages}) {
+function ChatPage({ data,chatId,setsendMessage,recievedMessages,socketId}) {
   const {user} =useSelector(state=>state)
   const senderId=user?.details?._id;
 
@@ -55,6 +55,9 @@ useEffect(()=> {
 
 },[recievedMessages])
 
+const callUser=()=>{
+
+}
   const scroll = useRef();
 
   return (
@@ -78,6 +81,7 @@ useEffect(()=> {
         <div className='user-name'>
             <h5 className='name-style'>{data?.name}</h5>
         </div>
+        <button onClick={callUser()} style={{ border:'none' }}><BsFillTelephoneFill/></button>
       </div>
       {/* chatbody */}
 

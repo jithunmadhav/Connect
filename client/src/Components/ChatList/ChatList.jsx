@@ -33,10 +33,10 @@ function ChatList({data,activeUsers}) {
   }, [search])
   console.log(activeUsers,'ACTIVE');
 
-   userdata = userdata.map((item) => {
-    const isOnline = activeUsers.some((user) => user.userId === item._id);
-    return { ...item, online: isOnline };
-});
+//    userdata = userdata.map((item) => {
+//     const isOnline = activeUsers.some((user) => user.userId === item._id);
+//     return { ...item, online: isOnline };
+// });
 
 
   return (

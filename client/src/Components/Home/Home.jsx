@@ -5,12 +5,13 @@ import ChatPage from '../ChatPage/ChatPage'
 import { useSelector } from 'react-redux'
 import axios from '../../axios'
 import { io } from 'socket.io-client'
-const socket=io.connect('ws://localhost:4000')
+const socket=io.connect('http://localhost:4000')
 
 function Home() {
   // const socket=useRef()
   const [userdata, setuserdata] = useState('')
   const [chatId, setchatId] = useState('')
+  const [current_socketId, setcurrent_socketId] = useState('')
   const [sendMessage, setsendMessage] = useState('')
   const [activeUsers, setactiveUsers] = useState([])
   const [recievedMessages, setrecievedMessages] = useState('')
@@ -35,6 +36,10 @@ socket.on('connect', () => {
   console.log('WebSocket connected successfully!');
 });
 
+socket.on('current-socketId',(socketId)=>{
+  setcurrent_socketId(socketId)
+})
+
 socket.on('connect_error', (error) => {
   console.error('WebSocket connection error:', error);
 });
@@ -57,11 +62,11 @@ if(sendMessage!==null && sendMessage!==""){
   socket.emit('send-message',data)
 }
 }, [sendMessage])
-console.log("ONLINE : ",activeUsers);
+// console.log("ONLINE : ",activeUsers);
 //Recieve-message
 useEffect(()=>{
   socket.on('recieve',(response)=>{
-console.log(response);
+console.log(response,'RECIVED-MESSG');
 setrecievedMessages(response)
   })
 },[])
@@ -76,6 +81,7 @@ setrecievedMessages(response)
   chatId={chatId}
   setsendMessage={setsendMessage}
   recievedMessages={recievedMessages}
+  socketId={current_socketId}
   />
   </div>
   </>
