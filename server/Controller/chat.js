@@ -8,7 +8,6 @@ export const userDetails=async(req,res)=>{
         const query={
             name: new RegExp(search, 'i')
         }
-        console.log("***************************",search);
         const result = await userModel.find(
             {
               $and: [query, { _id: { $ne: userId } }]
@@ -22,11 +21,22 @@ export const userDetails=async(req,res)=>{
     }else{
         let data= await chatModel.find({members:{$all:userId}})
         let chatMembers=[]
-        data.filter((item)=>chatMembers.push(item.members[1]))
-        const result = await userModel.find({
-            _id: { $in: chatMembers },
+        data.forEach((item) => {
+            item.members.forEach((member) => {
+              if (member !== userId) {
+                chatMembers.push(member);
+              }
+            });
           });
-          res.status(200).json({err:false,result})    }
+        if(chatMembers.length >0){
+            const result = await userModel.find({
+                _id: { $in: chatMembers },
+              });
+              res.status(200).json({err:false,result})   
+        }else{
+            res.status(404).json({err:true,message:'No data found'})
+        }
+         }
 }
 
 export const createChat = async (req, res) => {
@@ -35,14 +45,14 @@ export const createChat = async (req, res) => {
       members: { $all: [req.body.senderId, req.body.recieverId] },
     });
     if(chatExist){
-      res.status(200).json({err:false,message:'chat already exist'})
+      res.status(200).json({err:false,chatId:chatExist._id,message:'chat already exist'})
     }else{
       const newChat = new chatModel({
         members: [req.body.senderId, req.body.recieverId],
       });
     
         const result = await newChat.save();
-        res.status(200).json({err:false,message:"chat created"});
+        res.status(200).json({err:false,chatId:result._id,message:"chat created"});
     }
   
     } catch (error) {
@@ -50,13 +60,31 @@ export const createChat = async (req, res) => {
     }
   };
 
+export const chatId=async(req,res)=>{
+  const result  = await chatModel.findOne({
+    members: { $all: [req.query.senderId, req.query.recieverId] },
+  });
+  res.status(200).json({err:false,chatId:result?._id})
+}  
+
 export const addMessage=async(req,res)=>{
 try {
-    const {chatId,senderId,text}=req.body;
-    await messageModel.create({chatId,senderId,text})
+    const {chatId,senderId,message}=req.body;
+    await messageModel.create({chatId,senderId,text:message})
     res.status(200).json({err:false})
 } catch (error) {
     console.log(error);
     res.status(501).json({err:true})
 }
+}
+
+export const fetchMessage=async(req,res)=>{
+    try {
+        const {chatId}=req.query;
+        const result=await messageModel.find({chatId})
+        res.status(200).json({err:false,result})
+    } catch (error) {
+        console.log(error);
+        res.status(501).json({err:true,error})
+    }
 }

@@ -1,14 +1,27 @@
 import express from 'express';
 import 'dotenv/config';
-import { dbconnect } from './config.js';
+import { dbconnect } from './config/dbConfig.js';
+import http from 'http'
 import path from 'path';
 import morgan from 'morgan';
 import cookieparser from 'cookie-parser';
 import cors from 'cors';
+import {Server} from 'socket.io'
 import userRoute from './Routes/userRouter.js';
-
 const app = express();
+import { createServer } from 'http';
+import { socketConnection } from './config/socketConnection.js';
+const server = http.createServer(app)
+const io=new Server(server,{
+  cors:{
+    origin:['http://localhost:3000'],
+    transports: ['websocket']
+  }
+})
 dbconnect()
+let activeusers={}
+socketConnection(io,activeusers)
+
 // Middleware
 app.use(cors({
   origin: ['http://localhost:3000'],
@@ -25,6 +38,6 @@ app.use(morgan('dev'));
 app.use('/', userRoute);
 
 const port = 4000;
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
