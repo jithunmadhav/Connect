@@ -14,7 +14,7 @@ import { socketConnection } from './config/socketConnection.js';
 const server = http.createServer(app)
 const io=new Server(server,{
   cors:{
-    origin:['http://localhost:3000'],
+    origin:['http://localhost:3000','https://conct.netlify.app'],
     transports: ['websocket']
   }
 })
@@ -24,7 +24,7 @@ socketConnection(io,activeusers)
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: ['http://localhost:3000','https://conct.netlify.app'],
   credentials: true,
 }));
 
