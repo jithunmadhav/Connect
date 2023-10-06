@@ -64,7 +64,7 @@ export const chatId=async(req,res)=>{
   const result  = await chatModel.findOne({
     members: { $all: [req.query.senderId, req.query.recieverId] },
   });
-  const chatId=result?._id
+  const chatId=result._id
   res.status(200).json({err:false,chatId})
 }  
 
