@@ -206,11 +206,8 @@ export const userLogin=async(req,res)=>{
     const verifyJwt= jwt.verify(token,process.env.JWT_SECRET_KEY);
     let ID=verifyJwt.id;
     const user=await userModel.findOne({_id:ID})
-    if(user?.ban==true){
-        res.json({logged:false,err:true,message:'user banned',ban:true})
-    }else{
-        res.json({logged:true,details:user,ban:false})
-    }
+    res.json({logged:true,details:user,ban:false})
+  
     }else{
      res.json({logged:false,err:true,message:'No token',ban:false})
     }
