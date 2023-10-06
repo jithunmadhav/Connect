@@ -36,9 +36,11 @@ socket.on('connect', () => {
   console.log('WebSocket connected successfully!');
 });
 
-socket.on('current-socketId',(socketId)=>{
+socket.on('socketId',(socketId)=>{
+
   setcurrent_socketId(socketId)
 })
+console.log(current_socketId,'$$$$$$$$$$$$$$3########3');
 
 socket.on('connect_error', (error) => {
   console.error('WebSocket connection error:', error);
@@ -66,11 +68,10 @@ if(sendMessage!==null && sendMessage!==""){
 //Recieve-message
 useEffect(()=>{
   socket.on('recieve',(response)=>{
-console.log(response,'RECIVED-MESSG');
+// console.log(response,'RECIVED-MESSG');
 setrecievedMessages(response)
   })
 },[])
-// console.log("RECIEVED_MESSAGES",recievedMessages);
   return (
   <>
   <div className='chat-width'>
@@ -80,6 +81,7 @@ setrecievedMessages(response)
   <ChatPage data={userdata}
   chatId={chatId}
   setsendMessage={setsendMessage}
+  activeusers={activeUsers}
   recievedMessages={recievedMessages}
   socketId={current_socketId}
   />

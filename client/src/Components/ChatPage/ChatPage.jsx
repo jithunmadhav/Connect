@@ -8,10 +8,14 @@ import axios from '../../axios';
 import { useSelector } from 'react-redux';
 import {format} from 'timeago.js'
 import VideoCall from '../VideoCall/VideoCall';
-function ChatPage({ data,chatId,setsendMessage,recievedMessages,socketId}) {
+function ChatPage({ data,chatId,setsendMessage,recievedMessages,socketId,activeusers}) {
   const {user} =useSelector(state=>state)
   const senderId=user?.details?._id;
-
+  let recieverSocketId;
+  if(activeusers[data._id]){
+     recieverSocketId = activeusers[data._id]?.socketId;
+  }
+  let senderSocketId=activeusers[senderId]?.socketId;
 
   const [text, setText] = useState("");
   const [refresh, setrefresh] = useState(false)
@@ -61,7 +65,10 @@ useEffect(()=> {
 
   return (
     <>
-    {videocall ? <VideoCall socketId={socketId} /> :
+    {videocall && recieverSocketId ? <VideoCall socketId={senderSocketId}
+    recieverSocketId={recieverSocketId}
+    recievername={data?.name}
+    /> :
     <>
     {!data ?
     <div className='empty-chatpage'>
