@@ -7,6 +7,7 @@ import imageUrl from '../../imageUrl';
 import axios from '../../axios';
 import { useSelector } from 'react-redux';
 import {format} from 'timeago.js'
+import VideoCall from '../VideoCall/VideoCall';
 function ChatPage({ data,chatId,setsendMessage,recievedMessages,socketId}) {
   const {user} =useSelector(state=>state)
   const senderId=user?.details?._id;
@@ -15,6 +16,7 @@ function ChatPage({ data,chatId,setsendMessage,recievedMessages,socketId}) {
   const [text, setText] = useState("");
   const [refresh, setrefresh] = useState(false)
   const [message, setmessage] = useState([])
+  const [videocall, setvideocall] = useState(false)
 
   function handleOnEnter() {
     let message=text;
@@ -55,12 +57,11 @@ useEffect(()=> {
 
 },[recievedMessages])
 
-const callUser=()=>{
-
-}
   const scroll = useRef();
 
   return (
+    <>
+    {videocall ? <VideoCall socketId={socketId} /> :
     <>
     {!data ?
     <div className='empty-chatpage'>
@@ -81,7 +82,7 @@ const callUser=()=>{
         <div className='user-name'>
             <h5 className='name-style'>{data?.name}</h5>
         </div>
-        <button onClick={callUser()} style={{ border:'none' }}><BsFillTelephoneFill/></button>
+        <button onClick={()=>setvideocall(!videocall)} style={{ border:'none' }}><BsFillTelephoneFill/></button>
       </div>
       {/* chatbody */}
 
@@ -121,6 +122,8 @@ const callUser=()=>{
         </div>
       </div>
     </div>
+    }
+    </>
     }
     </>
   )

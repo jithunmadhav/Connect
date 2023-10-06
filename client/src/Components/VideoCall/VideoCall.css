@@ -1,0 +1,12 @@
+.videocall-maindiv{
+    padding: 100px;
+    display: flex;
+}
+.caller-div{
+ width: 50%;
+ height: 500px;
+}
+.reciever-div{
+width: 50%;
+height: 500px;
+}

@@ -4,8 +4,8 @@ import ChatList from '../ChatList/ChatList'
 import ChatPage from '../ChatPage/ChatPage'
 import { useSelector } from 'react-redux'
 import axios from '../../axios'
-import { io } from 'socket.io-client'
-const socket=io.connect('http://localhost:4000')
+import socket from '../../socketConnection'
+
 
 function Home() {
   // const socket=useRef()
