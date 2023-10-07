@@ -86,9 +86,16 @@ function VideoCall({socketId,recieverSocketId,recievername}) {
 	}
 
 	const leaveCall = () => {
-		setCallEnded(true)
-		connectionRef.current.destroy()
-	}
+		try {
+		  setCallEnded(true);
+		  if (connectionRef.current) {
+            connectionRef.current.destroy(); 
+        }		
+
+	} catch (error) {
+		  console.error("Error when ending the call:", error);
+		}
+	  };
   return (
     <div className='chatpage-width'>
       <div className='videocall-maindiv'>
@@ -103,7 +110,7 @@ function VideoCall({socketId,recieverSocketId,recievername}) {
 	  </div>
 	  <div className="call-button">
 					{callAccepted && !callEnded ? (
-						<button variant="contained" color="secondary" onClick={leaveCall}>
+						<button  color="secondary" onClick={leaveCall}>
 							End Call
 						</button>
 					) : (

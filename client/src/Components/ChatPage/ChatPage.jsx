@@ -11,9 +11,10 @@ import VideoCall from '../VideoCall/VideoCall';
 function ChatPage({ data,chatId,setsendMessage,recievedMessages,socketId,activeusers}) {
   const {user} =useSelector(state=>state)
   const senderId=user?.details?._id;
-  let recieverSocketId;
+  let recieverSocketId,recieverName;
   if(activeusers[data._id]){
      recieverSocketId = activeusers[data._id]?.socketId;
+     
   }
   let senderSocketId=activeusers[senderId]?.socketId;
 
@@ -67,7 +68,7 @@ useEffect(()=> {
     <>
     {videocall && recieverSocketId ? <VideoCall socketId={senderSocketId}
     recieverSocketId={recieverSocketId}
-    recievername={data?.name}
+    recievername={user?.details?.name}
     /> :
     <>
     {!data ?
