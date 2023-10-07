@@ -90,7 +90,7 @@ useEffect(()=> {
         <div className='user-name'>
             <h5 className='name-style'>{data?.name}</h5>
         </div>
-        <button onClick={()=>setvideocall(!videocall)} style={{ border:'none' }}><BsFillTelephoneFill/></button>
+        <button onClick={()=>setvideocall(!videocall)} style={{ border:'none',backgroundColor:'#f5f7fb' }}><BsFillTelephoneFill/></button>
       </div>
       {/* chatbody */}
 

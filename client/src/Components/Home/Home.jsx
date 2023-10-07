@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux'
 import axios from '../../axios'
 import socket from '../../socketConnection'
 
-
 function Home() {
+  const screenWidth = window.innerWidth;
+  const isScreenWide = 500;
   // const socket=useRef()
   const [userdata, setuserdata] = useState('')
   const [chatId, setchatId] = useState('')
@@ -15,10 +16,12 @@ function Home() {
   const [sendMessage, setsendMessage] = useState('')
   const [activeUsers, setactiveUsers] = useState([])
   const [recievedMessages, setrecievedMessages] = useState('')
-  const chatListData=(data)=>{
+  const [openChatPage, setopenChatPage] = useState(false)
+  const chatListData=(data,status)=>{
+    setopenChatPage(true)
     setuserdata(data)
   }
-
+console.log(openChatPage);
   const {user} =useSelector(state=>state)
   const senderId=user?.details?._id;
   const recieverId=userdata?._id;
@@ -73,6 +76,24 @@ setrecievedMessages(response)
   })
 },[])
   return (
+    <>
+    {
+     screenWidth < isScreenWide ?
+     openChatPage ?
+     <ChatPage data={userdata}
+     chatId={chatId}
+     setsendMessage={setsendMessage}
+     activeusers={activeUsers}
+     recievedMessages={recievedMessages}
+     socketId={current_socketId}
+     />
+     :
+     <ChatList data={chatListData}
+     activeUsers={activeUsers}
+     />
+   :
+
+    
   <>
   <div className='chat-width'>
   <ChatList data={chatListData}
@@ -86,7 +107,10 @@ setrecievedMessages(response)
   socketId={current_socketId}
   />
   </div>
+
   </>
+    }
+    </>
   )
 }
 

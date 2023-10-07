@@ -15,8 +15,8 @@ function ChatList({data,activeUsers}) {
   const userId=user?.details?._id;
 
   // Data passing to the chatpage component
-  const HomePageData=(para)=>{
-    data(para)
+  const HomePageData=(para,status)=>{
+    data(para,status)
   }
 // creating chat with the user
   const createChat=(recieverId)=>{
@@ -50,10 +50,11 @@ function ChatList({data,activeUsers}) {
       :<>
         <input className='input-field' onChange={(e)=>setsearch(e.target.value)} type="text" placeholder='🔍 Search here...' name="" id="" />
         <h6>Recents</h6>
+        <div className='scroll-div'>
         {userdata.map((item)=>{
           return (
         <div className='user-list' 
-        onClick={()=>{HomePageData(item); createChat(item._id)}}
+        onClick={()=>{HomePageData(item,true); createChat(item._id)}}
         >
         <div className='prof-pic'>
           {
@@ -71,6 +72,7 @@ function ChatList({data,activeUsers}) {
       </div>
           )
         })}
+        </div>
         </>
        }
     </div>

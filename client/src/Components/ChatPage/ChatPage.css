@@ -31,7 +31,7 @@ input[type="file"] {
 }
 .chat-footer{
     display: flex;
-    height: 7%;
+    height: 8%;
     background-color: #42464d42;
     margin: 0.5%;
     border-radius: 10px;
@@ -160,4 +160,126 @@ input[type="file"] {
 .time-style1{
     font-size: 13px;
     text-align: left;
+}
+@media(max-width:500px){
+    .chatpage-width{
+        height: 100vh;
+        width: 100%;
+        background-color: white;
+    }
+    .empty-chatpage{
+        height: 100vh;
+        width: 100%;
+        background-color: #f5f7fb;
+        margin: 10px;
+        border-radius: 10px;
+    }
+    .user-name {
+        width: 75%;
+        text-align: center;
+        margin-top: 0px;
+    }
+    .user-img {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        margin: auto;
+        display: flex;
+        margin-left: 9px;
+        margin-top: 7px;
+        object-fit: cover;
+        border: 1px solid rgb(167, 166, 166);
+    }
+    .input-field-main {
+        width: 78%;
+        padding-top: 0px;
+    }
+    .send-btn {
+        border: none;
+        background-color: #7269ef;
+        color: white;
+        margin-top: 10px;
+        border-radius: 10px;
+        font-size: medium;
+        width: 37px;
+        height: 36px;
+    }
+    .chat-body {
+        height: 80%;
+        overflow-y: auto;
+        background-color: #f5f7fb;
+        margin: 0.5%;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 7px;
+        overflow-y: scroll;
+    }
+    .message-recieved {
+        width: fit-content;
+        min-width: 150px;
+        min-height: 70px;
+        max-width: 400px;
+        margin: 20px;
+        border-radius: 15px;
+        color: #fff;
+        background: #9891f8;
+        padding: 20px;
+        text-align: center;
+        font-weight: 500;
+        font-family: arial;
+        position: relative;
+        height: fit-content;
+        word-wrap: break-word;
+        
+    }
+    .message-para{
+        text-align: left;
+    }
+    
+    .message-sent{
+        align-self: flex-end;
+        color: black;
+        background: #d3d1d1;
+    
+    }
+    
+      
+      .sb13:before {
+        content: "";
+        width: 0px;
+        height: 10%;
+        position: absolute;
+        border-left: 15px solid #d3d1d1;
+        border-right: 15px solid transparent;
+        border-top: 15px solid #d3d1d1;
+        border-bottom: 15px solid transparent;
+        right: -16px;
+        top: 0px;
+      }
+      
+      
+      
+      .sb14:before {
+        content: "";
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        border-left: 15px solid transparent;
+        border-right: 15px solid #9891f8;
+        border-top: 15px solid #9891f8;
+        border-bottom: 15px solid transparent;
+        left: -16px;
+        top: 0px;
+      }
+      .time-style2{
+        font-size: 13px;
+        text-align: right;
+        margin-top: 0px;
+    }
+    .time-style1{
+        font-size: 13px;
+        text-align: left;
+        margin-top: -14px;
+    }
 }

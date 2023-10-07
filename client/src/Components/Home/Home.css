@@ -1,3 +1,6 @@
 .chat-width{
     display: flex;
 }
+.chat-width::-webkit-scrollbar {
+    display: none;
+}
