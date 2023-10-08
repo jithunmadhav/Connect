@@ -87,15 +87,15 @@ function VideoCall({socketId,recieverSocketId,recievername}) {
 
 	const leaveCall = () => {
 		try {
-		  setCallEnded(true);
-		  if (connectionRef.current) {
-            connectionRef.current.destroy(); 
-        }		
-
-	} catch (error) {
-		  console.error("Error when ending the call:", error);
+			setCallEnded(true);
+		// Destroy the peer connection
+			connectionRef.current.destroy();		
+			console.log('call ended');	
+		} catch (error) {
+			console.error("Error when ending the call:", error);
 		}
-	  };
+	};
+	
   return (
     <div className='chatpage-width'>
       <div className='videocall-maindiv'>

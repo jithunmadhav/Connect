@@ -33,7 +33,6 @@ margin-top: 25px;
 }
 .scroll-div {
     overflow-y: auto;
-    height: 100vh;
 }
 .input-field{
     width: 100%;
