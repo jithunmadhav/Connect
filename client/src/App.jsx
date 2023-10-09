@@ -15,6 +15,7 @@ const dispatch = useDispatch()
   useEffect(() => {
     axios.get('/auth').then((response)=>{
       dispatch({ type: 'user', payload: { login: response.data.logged, details: response.data.details } });
+      console.log('USER :',user);
     }).catch((error)=>{
       console.log(error);
     })

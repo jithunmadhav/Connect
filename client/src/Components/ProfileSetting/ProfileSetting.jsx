@@ -13,7 +13,7 @@ function ProfileSetting({userId}) {
   const [openEdit, setopenEdit] = useState(false)
   const [refresh, setrefresh] = useState(false)
   const [userdata, setuserdata] = useState('')
-  const [name, setname] = useState(user.details.name)
+  const [name, setname] = useState(user?.details?.name)
   const [files, setfiles] = useState('')
 
   const handlelogout = () => {
@@ -54,12 +54,12 @@ function ProfileSetting({userId}) {
         <div className='profile-box'>
           {
             userdata?.image ? 
-            <img className='profile-img' src={imageUrl+userdata.image.filename} alt="" srcset="" />
+            <img className='profile-img' src={imageUrl+userdata?.image?.filename} alt="" srcset="" />
             :
            <img className='profile-img' src="https://www.transparentpng.com/thumb/user/gray-user-profile-icon-png-fP8Q1P.png" alt="" srcset="" />
           }
-          <p className='profile-name'>{userdata.name}</p>
-          <p className='profile-email'>{userdata.email}</p>
+          <p className='profile-name'>{userdata?.name}</p>
+          <p className='profile-email'>{userdata?.email}</p>
           {openEdit ? 
           <>
             <form onSubmit={handleSubmit}>
