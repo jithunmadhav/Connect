@@ -24,7 +24,7 @@ const dispatch = useDispatch()
     <>
         <Router>
         <Routes>
-        {user.login === false && (
+        {!user.login && (
             <>
               <Route path='/login' element={<Login/>} /> 
               <Route path='/signup' element={<Signup/>} />
@@ -35,7 +35,7 @@ const dispatch = useDispatch()
 
             </>
           )}
-          {user.login === true && (
+          {user.login && (
             <>
               <Route path='/login' element={<Navigate to={'/'}/>} /> 
               <Route path='/signup' element={<Navigate to={'/'}/>} />
