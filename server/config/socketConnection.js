@@ -2,7 +2,7 @@ export const socketConnection=(io,activeusers)=>{
     io.on("connection",(socket)=>{
         //adding new user to the connection
         socket.on('new-user-add',(newUserId)=>{
-          console.log(newUserId);
+          console.log("Socket.connect : ",socket.connected);
           if(!activeusers[newUserId]){
             socket.emit('socketId',socket.id)
             activeusers[newUserId]={userId:newUserId,socketId:socket.id}
@@ -10,11 +10,12 @@ export const socketConnection=(io,activeusers)=>{
           io.emit('get-user',activeusers)
         })
       //disconnecting the specific user from the connection
-      socket.on('disconnection',()=>{
+      socket.on('disconnect',()=>{
         Object.keys(activeusers).forEach((key) => {
           if(activeusers[key].socketId === socket.id) {
                delete activeusers[key] 
-          }  io.emit('get-user',activeusers)
+          }  
+          io.emit('get-user',activeusers)
       })
       })
       //send a message to a specific client
@@ -26,7 +27,7 @@ export const socketConnection=(io,activeusers)=>{
         console.log('IF-OUT');
         if (user) {
           console.log('IF-IN');
-          console.log('USER : ',user);
+          console.log('USER-SOCKETID :',user.socketId);
           io.to(user.socketId).emit("recieve", data);
         }
       });

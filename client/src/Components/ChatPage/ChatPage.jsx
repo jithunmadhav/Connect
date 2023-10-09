@@ -23,6 +23,10 @@ function ChatPage({ data,chatId,setsendMessage,recievedMessages,socketId,activeu
   const [message, setmessage] = useState([])
   const [videocall, setvideocall] = useState(false)
 
+  function sample(){
+    
+  }
+
   function handleOnEnter() {
     let message=text;
     setsendMessage(message)
@@ -63,12 +67,13 @@ useEffect(()=> {
 },[recievedMessages])
 
   const scroll = useRef();
-
+console.log('!!!!!!!!!',videocall);
   return (
     <>
     {videocall && recieverSocketId ? <VideoCall socketId={senderSocketId}
     recieverSocketId={recieverSocketId}
     recievername={user?.details?.name}
+    videocall={setvideocall}
     /> :
     <>
     {!data ?

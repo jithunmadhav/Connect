@@ -5,7 +5,7 @@ import socket from '../../socketConnection'
 import './VideoCall.css'
 
 
-function VideoCall({socketId,recieverSocketId,recievername}) {
+function VideoCall({socketId,recieverSocketId,recievername,videocall}) {
     const [ me, setMe ] = useState(socketId)
 	console.log('ME :',me);
 	const [ stream, setStream ] = useState()
@@ -84,12 +84,19 @@ function VideoCall({socketId,recieverSocketId,recievername}) {
 		peer.signal(callerSignal)
 		connectionRef.current = peer
 	}
-
+	const toggleStream = () => {
+		if (stream) {
+		  stream.getTracks().forEach((track) => track.stop());
+		}
+		setStream(null);
+	  };
 	const leaveCall = () => {
 		try {
 			setCallEnded(true);
 		// Destroy the peer connection
-			connectionRef.current.destroy();		
+			connectionRef.current.destroy();
+			toggleStream()
+			videocall(false);
 			console.log('call ended');	
 		} catch (error) {
 			console.error("Error when ending the call:", error);
@@ -100,7 +107,7 @@ function VideoCall({socketId,recieverSocketId,recievername}) {
     <div className='chatpage-width'>
       <div className='videocall-maindiv'>
 		<div className='caller-div'>
-			<video playsInline autoPlay muted ref={myVideo} />
+			<video playsInline autoPlay muted style={{ width: "300px"}} ref={myVideo} />
 		</div>
 		<div className='reciever-div'>
 		{callAccepted && !callEnded ?
