@@ -2,7 +2,7 @@ input[type="file"] {
     display: none;
   }
 .chatpage-width{
-    height: 100vh;
+    height: 98vh;
     width: 75%;
     background-color: white;
 }
@@ -205,7 +205,7 @@ input[type="file"] {
         height: 36px;
     }
     .chat-body {
-        height: 78%;
+        height: auto;
         overflow-y: auto;
         background-color: #f5f7fb;
         margin: 0.5%;
