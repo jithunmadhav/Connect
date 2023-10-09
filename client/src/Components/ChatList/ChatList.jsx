@@ -26,7 +26,9 @@ function ChatList({data,activeUsers}) {
 
   useEffect(() => {
     axios.get('/userdetails',{params:{search,userId}}).then((response)=>{
-      setuserdata(response.data.result)
+      if(response?.data?.result){
+        setuserdata(response?.data?.result)
+      }
     }).catch((err)=>{
       console.log(err);
     })
