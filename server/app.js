@@ -14,7 +14,7 @@ import { socketConnection } from './config/socketConnection.js';
 const server = http.createServer(app)
 const io=new Server(server,{
   cors:{
-    origin:['http://localhost:3000','https://conct.netlify.app','https://connect-nmph.onrender.com','https://main.d3m9yh9cv78ol9.amplifyapp.com'],
+    origin:['http://localhost:3000','https://www.connects.autoaid.online','https://connect-nmph.onrender.com','https://main.d3m9yh9cv78ol9.amplifyapp.com'],
     transports: ['websocket']
   }
 })
@@ -24,7 +24,7 @@ socketConnection(io,activeusers)
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000','https://conct.netlify.app','https://connect-nmph.onrender.com','https://main.d3m9yh9cv78ol9.amplifyapp.com'],
+  origin: ['http://localhost:3000','https://www.connects.autoaid.online','https://connect-nmph.onrender.com','https://main.d3m9yh9cv78ol9.amplifyapp.com'],
   credentials: true,
 }));
 
