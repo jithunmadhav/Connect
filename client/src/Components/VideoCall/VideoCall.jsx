@@ -104,38 +104,45 @@ function VideoCall({socketId,recieverSocketId,recievername,videocall}) {
 	};
 	
   return (
-    <div className='chatpage-width'>
+    <div className='chatpage-width background'>
       <div className='videocall-maindiv'>
 		<div className='caller-div'>
-			<video playsInline autoPlay muted style={{ width: "300px"}} ref={myVideo} />
+			<video playsInline autoPlay muted className='video-box' ref={myVideo} />
 		</div>
 		<div className='reciever-div'>
-		{callAccepted && !callEnded ?
-			<video playsInline ref={userVideo} autoPlay style={{ width: "300px"}} />:
-					null}		
+		{receivingCall && !callAccepted && !callEnded ?
+		<div className="caller">
+		<h1 >{name} is calling...</h1>
+		<button className='answer-btn' onClick={answerCall}>
+			Answer
+		</button>
+	</div>
+		:
+			<video playsInline ref={userVideo} autoPlay className='video-box' />
+					}		
 		</div>
 	  </div>
 	  <div className="call-button">
 					{callAccepted && !callEnded ? (
-						<button  color="secondary" onClick={leaveCall}>
-							End Call
+						<button  className='end-btn' onClick={leaveCall}>
+							End
 						</button>
 					) : (
 						<button color="primary" aria-label="call" onClick={() => callUser(idToCall)}>
 							call
 						</button>
 					)}
-					{idToCall}
+					
 				</div>  
 				<div>
-				{receivingCall && !callAccepted ? (
+				{/* {receivingCall && !callAccepted ? (
 						<div className="caller">
 						<h1 >{name} is calling...</h1>
 						<button variant="contained" color="primary" onClick={answerCall}>
 							Answer
 						</button>
 					</div>
-				) : null}
+				) : null} */}
 			</div>
 				 </div>
   )

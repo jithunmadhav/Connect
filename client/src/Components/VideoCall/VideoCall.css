@@ -2,6 +2,10 @@
     padding: 100px;
     display: flex;
 }
+.background{
+    background-color: #f5f7fb !important;
+
+}
 .caller-div{
  width: 50%;
  height: 500px;
@@ -9,4 +13,38 @@
 .reciever-div{
 width: 50%;
 height: 500px;
+}
+.video-box{
+    width: 100%;
+     
+}
+.end-btn{
+    background-color: rgb(237 0 0);
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    width: 101px;
+    font-family: monospace;
+    height: 44px;
+}
+.end-btn:hover{
+    color: black;
+}
+.answer-btn{
+    background: #199119;
+    color: white;
+    border: 1px solid black;
+    font-family: ui-monospace;
+    height: 45px;
+    width: 100px;
+    border-radius: 5px;
+}
+.caller{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.call-button{
+    display: flex;
+    justify-content: center;
 }
